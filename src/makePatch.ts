@@ -210,8 +210,10 @@ export function makePatch({
     git("add", "-f", packageDetails.path)
 
     // get diff of changes
+    const gitConfig = ignoreFileMode ? ["-c", "core.fileMode=false"] : []
     const diffResult = git(
-      ignoreFileMode ? "-c core.fileMode=false diff" : "diff",
+      ...gitConfig,
+      "diff",
       "--cached",
       "--no-color",
       "--ignore-space-at-eol",
