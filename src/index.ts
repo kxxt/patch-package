@@ -22,6 +22,7 @@ const argv = minimist(process.argv.slice(2), {
     "version",
     "error-on-fail",
     "create-issue",
+    "ignore-file-mode",
   ],
   string: ["patch-dir"],
 })
@@ -60,6 +61,7 @@ if (argv.version || argv.v) {
       argv["use-yarn"] ? "yarn" : null,
     )
     const createIssue = argv["create-issue"]
+    const ignoreFileMode = argv["ignore-file-mode"]
     packageNames.forEach((packagePathSpecifier: string) => {
       makePatch({
         packagePathSpecifier,
@@ -69,6 +71,7 @@ if (argv.version || argv.v) {
         excludePaths,
         patchDir,
         createIssue,
+        ignoreFileMode,
       })
     })
   } else {

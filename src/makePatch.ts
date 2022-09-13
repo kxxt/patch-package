@@ -49,6 +49,7 @@ export function makePatch({
   excludePaths,
   patchDir,
   createIssue,
+  ignoreFileMode,
 }: {
   packagePathSpecifier: string
   appPath: string
@@ -57,6 +58,7 @@ export function makePatch({
   excludePaths: RegExp
   patchDir: string
   createIssue: boolean
+  ignoreFileMode: boolean
 }) {
   const packageDetails = getPatchDetailsFromCliString(packagePathSpecifier)
 
@@ -209,6 +211,7 @@ export function makePatch({
 
     // get diff of changes
     const diffResult = git(
+      ignoreFileMode ? "-c core.fileMode=false" : "",
       "diff",
       "--cached",
       "--no-color",
