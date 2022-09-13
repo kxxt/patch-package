@@ -185,6 +185,9 @@ export function makePatch({
     git("init")
     git("config", "--local", "user.name", "patch-package")
     git("config", "--local", "user.email", "patch@pack.age")
+    if (ignoreFileMode) {
+      git("config", "--local", "core.fileMode", "false")
+    }
 
     // remove ignored files first
     removeIgnoredFiles(tmpRepoPackagePath, includePaths, excludePaths)
@@ -210,7 +213,7 @@ export function makePatch({
     git("add", "-f", packageDetails.path)
 
     // get diff of changes
-    const gitConfig = ignoreFileMode ? ["-c", "core.fileMode=false"] : []
+    const gitConfig = ignoreFileMode ? ["-c", "core.filemode=false"] : []
     const diffResult = git(
       ...gitConfig,
       "diff",
