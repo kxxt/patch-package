@@ -211,8 +211,7 @@ export function makePatch({
 
     // get diff of changes
     const diffResult = git(
-      ignoreFileMode ? "-c core.fileMode=false" : "",
-      "diff",
+      ignoreFileMode ? "-c core.fileMode=false diff" : "diff",
       "--cached",
       "--no-color",
       "--ignore-space-at-eol",
