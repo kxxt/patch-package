@@ -2,6 +2,11 @@
   <img src="https://ds300.github.io/patch-package/patch-package.svg" width="80%" alt="patch-package" />
 </p>
 
+This repo contains my fork of the original `patch-package`.
+
+I added an option `--ignore-file-mode` to ignore file mode changes when
+generating the patch.
+
 `patch-package` lets app authors instantly make and keep fixes to npm
 dependencies. It's a vital band-aid for those of us living on the bleeding edge.
 
@@ -78,9 +83,12 @@ details.
   Otherwise if you update a patch then the change may not be reflected on
   subsequent CI runs.
 
-  
 ### CircleCI
-Create a hash of your patches before loading/saving your cache. If using a Linux machine, run `md5sum patches/* > patches.hash`. If running on a macOS machine,  use `md5 patches/* > patches.hash`
+
+Create a hash of your patches before loading/saving your cache. If using a Linux
+machine, run `md5sum patches/* > patches.hash`. If running on a macOS machine,
+use `md5 patches/* > patches.hash`
+
 ```yaml
 - run:
     name: patch-package hash
@@ -88,19 +96,24 @@ Create a hash of your patches before loading/saving your cache. If using a Linux
 ```
 
 Then, update your hash key to include a checksum of that file:
+
 ```yaml
 - restore_cache:
-    key: app-node_modules-v1-{{ checksum "yarn.lock" }}-{{ checksum "patches.hash" }}
-```  
+    key:
+      app-node_modules-v1-{{ checksum "yarn.lock" }}-{{ checksum "patches.hash"
+      }}
+```
 
 As well as the save_cache
+
 ```yaml
 - save_cache:
-    key: app-node_modules-v1-{{ checksum "yarn.lock" }}-{{ checksum "patches.hash" }}
+    key:
+      app-node_modules-v1-{{ checksum "yarn.lock" }}-{{ checksum "patches.hash"
+      }}
     paths:
       - ./node_modules
 ```
-
 
 ## Usage
 

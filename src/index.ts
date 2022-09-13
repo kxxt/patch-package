@@ -154,6 +154,10 @@ Usage:
         By default, patch-package checks whether you use npm or yarn based on
         which lockfile you have. If you have both, it uses npm by default.
         Set this option to override that default and always use yarn.
+    
+    ${chalk.bold("--ignore-file-mode")}
+      
+        Ignore file mode changes when creating patches by setting core.fileMode to false.    
 
     ${chalk.bold("--exclude <regexp>")}
 
